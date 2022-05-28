@@ -1,0 +1,32 @@
+create : 
+  d  createVoter(
+        voterId,
+        password,
+        name,
+        age
+    )
+  d  createCandidate(
+        candidateId,
+        electionId,
+        name,
+        age,
+        partyName
+    )
+  d  createElection(
+        electionId,
+        electionName
+    )
+
+update:
+  d  updateCandidateVotingList(
+        candidateId,
+        voterId
+    )
+
+get:
+  d  getElections() -> electionId, electionName
+  d  getCandidatesByElectionId() -> list[ Candidate ]
+  d  getCandidates() -> list[ Candidates ]
+  d  getVoterById() -> voter
+  d  verifyVoterIdAndPassword(voterId,password) -> bool
+    

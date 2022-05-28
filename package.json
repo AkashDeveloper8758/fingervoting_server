@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "test": "node qldb/qldbQueries.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +21,7 @@
   "dependencies": {
     "amazon-qldb-driver-nodejs": "^2.2.0",
     "aws-sdk": "^2.1145.0",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "ion-js": "^4.3.0",
     "jsbi": "^3.2.5",
