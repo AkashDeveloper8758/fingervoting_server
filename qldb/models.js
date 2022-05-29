@@ -1,4 +1,4 @@
-export function formatCandidate(candidateId, name, age,partyName,electionId,votersList) {
+export function formatCandidate(candidateId, name, age,partyName,electionId,votersList=[]) {
     return {
         candidateId,
         electionId,

@@ -1,5 +1,7 @@
+models => 
+
 create : 
-  d  createVoter(
+  d*  createVoter(
         voterId,
         password,
         name,
@@ -12,21 +14,41 @@ create :
         age,
         partyName
     )
-  d  createElection(
+  d*  createElection(
         electionId,
         electionName
     )
 
 update:
-  d  updateCandidateVotingList(
+  d*  updateCandidateVotingList(
         candidateId,
         voterId
     )
 
 get:
-  d  getElections() -> electionId, electionName
-  d  getCandidatesByElectionId() -> list[ Candidate ]
-  d  getCandidates() -> list[ Candidates ]
-  d  getVoterById() -> voter
-  d  verifyVoterIdAndPassword(voterId,password) -> bool
+  d*  getElections() -> electionId, electionName
+  d*  getCandidatesByElectionId() -> list[ Candidate ]
+  d*  getCandidates() -> list[ Candidates ]
+  d*  getVoterById() -> voter
+  d*  verifyVoterIdAndPassword(voterId,password) -> bool
     
+
+// ------------ APIs ------------------------------------------------------------------
+// ------------ APIs ------------------------------------------------------------------
+
+get : 
+ getVoter : https://baseurl/voter/:voterId
+ getElections : https://baseurl/elections
+ getCandidateById : https://baseurl/candidates/:electionId
+ getCandidates: https://baseurl/candidates
+
+query: 
+ verifyVoterIdAndPassword : https://baseurl/verify?voterId='voterid'&password='pass'
+
+post:
+ createVoter : https://baseurl/createVoter   body: {voterId,password,name,age}
+ createCandidate : https://baseurl/createCandidate body: {candidateId,electionId,name,age,partyName}
+ createElection : https://baseurl/createElection body: {electionId,electionName}
+
+update:
+ voteCandidate : https://baseurl/voteCandidate?voterId='voterid'&candidateId='candidateid'

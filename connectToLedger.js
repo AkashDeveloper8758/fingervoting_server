@@ -9,7 +9,6 @@ dotenv.config()
 const qldbDriver = createQldbDriver();
 
 export function createQldbDriver(ledgerName, serviceConfigurationOptions) {
-    console.log('----------------- creating qldb driver ---------------  ')
     ledgerName = LEDGER_NAME
 
     var retryLimit = 4;

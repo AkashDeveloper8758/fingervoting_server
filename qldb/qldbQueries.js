@@ -13,8 +13,9 @@ import { error, log } from "../utils/logUtil.js";
 
 function preetyPrint(result) {
     var value = JSON.stringify(result.getResultList(), null, 2)
-    console.log(value)
-    return JSON.parse(value)
+    value = JSON.parse(value)
+    console.log('value : ',value)
+    return value
 }
 
 
@@ -43,7 +44,7 @@ export async function updateVoterList(txn, voterId, candidateId) {
     INSERT INTO c.votersList VALUE '${voterId}'
     WHERE c.candidateId = '${candidateId}'`
     const result = await txn.execute(statement)
-    console.log('result : ', result)
+    console.log('result : ', JSON.stringify(result.getResultList(), null, 2))
 }
 
 const initialExecutor = async function () {
@@ -126,7 +127,7 @@ export async function updateVoterListInCandidateFn(voterId, candidateId) {
 
 export async function getElectionsFn() {
     const qldbDriver = getQldbDriver();
-    await qldbDriver.executeLambda(async (txn) => {
+    return await qldbDriver.executeLambda(async (txn) => {
         var statement = `SELECT * FROM ${ELECTIONS_TABLE_NAME}`
         var result = await txn.execute(statement)
         return preetyPrint(result)
@@ -135,15 +136,16 @@ export async function getElectionsFn() {
 
 export async function getCandidateByElectionIdFn(electionId) {
     const qldbDriver = getQldbDriver();
-    await qldbDriver.executeLambda(async (txn) => {
+    return await qldbDriver.executeLambda(async (txn) => {
         var statement = `SELECT * FROM ${CANDIDATES_TABLE_NAME} WHERE electionId = '${electionId}'`
         var result = await txn.execute(statement)
-        return preetyPrint(result)
+        var value =  preetyPrint(result)
+        return value
     })
 }
 export async function getCandidatesFn() {
     const qldbDriver = getQldbDriver();
-    await qldbDriver.executeLambda(async (txn) => {
+    return await qldbDriver.executeLambda(async (txn) => {
         var statement = `SELECT * FROM ${CANDIDATES_TABLE_NAME}`
         var result = await txn.execute(statement)
         return preetyPrint(result)
@@ -156,16 +158,21 @@ export async function getVoterByIdFn(voterId) {
         var statement = `SELECT * FROM ${VOTERS_TABLE_NAME} WHERE voterId = '${voterId}'`
         var result = await txn.execute(statement)
         var value = preetyPrint(result)
-        return value
+        if(value.length > 0){
+            return value[0]
+        }
+        return undefined
     })
 }
 export async function verifyVoterIdAndPassword(voterId, password) {
     var result = await getVoterByIdFn(voterId)
-    if (result.length > 0) {
-        if (result[0].password == password) {
+
+    if (result != undefined) {
+        if (result.password == password) {
             return true
         } else {
             return false
         }
     }
+    return false
 }
