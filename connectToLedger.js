@@ -9,7 +9,7 @@ dotenv.config()
 const qldbDriver = createQldbDriver();
 
 export function createQldbDriver() {
-    ledgerName = LEDGER_NAME
+    var ledgerName = LEDGER_NAME
 
     var retryLimit = 4;
     var maxConcurrentTransactions = 10;
