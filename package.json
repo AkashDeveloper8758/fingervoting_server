@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon index.js",
-    "test": "node qldb/qldbQueries.js"
+    "test": "node qldb/qldbQueries.js",
+    "start":"node index.js"
   },
   "repository": {
     "type": "git",
