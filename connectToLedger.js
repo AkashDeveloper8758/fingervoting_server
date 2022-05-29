@@ -1,5 +1,5 @@
 import { QldbDriver, RetryConfig } from "amazon-qldb-driver-nodejs";
-import { LEDGER_NAME } from "./utils/Constants.js";
+import { LEDGER_NAME } from "./utils/constants.js";
 // import { ClientConfiguration } from "aws-sdk/clients/qldbsession.js";
 
 import dotenv from 'dotenv'
