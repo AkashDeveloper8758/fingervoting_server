@@ -125,4 +125,4 @@ app.post('/voteCandidate', async(req, res) => {
 })
 
 var PORT = process.env.PORT || 3000
-app.listen(3000, () => console.log(`Example app listening on port ${PORT}!`));
+app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
